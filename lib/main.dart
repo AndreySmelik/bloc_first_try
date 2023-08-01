@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'count_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BlocProvider<CountBloc>(
+      create: (context) => CountBloc(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -24,32 +25,27 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   CountBloc bloc = CountBloc();
-    return BlocProvider<CountBloc>(
-      create: (context) => bloc,
-      child: Scaffold(
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              onPressed: () {
-                IncCountEvent();
-              },
-              icon: const Icon(Icons.plus_one),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.exposure_minus_1),
-            ),
-          ],
-        ),
-        body: Center(
-          child: BlocBuilder<CountBloc, CountState>(
-            bloc: bloc,
-            builder: (context, state) {
-              return Text(state.toString(), style: TextStyle(fontSize: 33));
+    return Scaffold(
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () {
+              context.read<CountBloc>().add(IncCountEvent());
             },
+            icon: const Icon(Icons.plus_one),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.exposure_minus_1),
+          ),
+        ],
+      ),
+      body: Center(
+        child: BlocBuilder<CountBloc, CountState>(
+          builder: (context, state) {
+            return Text(state.aa(), style: TextStyle(fontSize: 33));
+          },
         ),
       ),
     );
