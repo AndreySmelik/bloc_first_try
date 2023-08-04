@@ -8,8 +8,9 @@ class CountBloc extends Bloc<CountEvent, CountState> {
     on<IncCountEvent>(onIncCountEvent);
   }
 
-  onIncCountEvent(IncCountEvent event, Emitter<CountState> emit) {
-    Number number = Number(count: 11);
+  onIncCountEvent(CountEvent event, Emitter<CountState> emit) async {
+    Number number = Number(count: 112);
+    final response = await IncCountState(number: number);
     emit(IncCountState(number: number));
   }
 }

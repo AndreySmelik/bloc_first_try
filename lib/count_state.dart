@@ -1,17 +1,11 @@
 import 'package:bloc_first_try/number.dart';
+import 'package:http/http.dart' as http;
 
-abstract class CountState {
-  aa() {}
-}
+abstract class CountState {}
 
 class InitCountState extends CountState {
   final Number number;
   InitCountState({required this.number});
-  @override
-  aa() {
-    // TODO: implement aa
-    return '234';
-  }
 
   @override
   String toString() {
@@ -22,14 +16,19 @@ class InitCountState extends CountState {
 class IncCountState extends CountState {
   final Number number;
   IncCountState({required this.number});
-
-  @override
-  aa() {
-    return 'rwer';
-  }
-
+ 
+  IncCountState copyWith({
+    final Number? number,
+  }) {return IncCountState(
+    number: number ?? this.number
+  );}
+   
   @override
   String toString() {
     return number.count.toString();
   }
+}
+
+class GetCountState extends CountState {
+
 }

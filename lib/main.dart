@@ -1,10 +1,14 @@
+import 'package:bloc_first_try/app_bloc_observer.dart';
 import 'package:bloc_first_try/count_event.dart';
 import 'package:bloc_first_try/count_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'count_bloc.dart';
 
 void main() {
+  Bloc.observer = AppBlocObserver();
+  //Bloc.transformer = sequential<dynamic>();
   runApp(BlocProvider<CountBloc>(
       create: (context) => CountBloc(), child: MyApp()));
 }
@@ -44,7 +48,7 @@ class MyHomePage extends StatelessWidget {
       body: Center(
         child: BlocBuilder<CountBloc, CountState>(
           builder: (context, state) {
-            return Text(state.aa(), style: TextStyle(fontSize: 33));
+            return Text(state.toString(), style: TextStyle(fontSize: 33));
           },
         ),
       ),
